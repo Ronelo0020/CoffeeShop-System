@@ -9,7 +9,11 @@ use CodeIgniter\Controller;
 class Dashboard extends BaseController {
     
     public function index() {
-        $db = \Config\Database::connect();
+        if (!session()->get('logged_in')) {
+        return redirect()->to(base_url('/'));
+    }
+
+    $db = \Config\Database::connect();
         
         // 1. Today's Total Sales
         $builderSales = $db->table('orders');

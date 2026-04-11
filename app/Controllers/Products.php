@@ -8,6 +8,9 @@ class Products extends BaseController {
 
     // 1. READ: Listahan sang produkto
     public function index() {
+        if (!session()->get('logged_in')) {
+        return redirect()->to(base_url('/'));
+    }
         $model = new Product_model();
         $data = [
             'products' => $model->findAll(),
